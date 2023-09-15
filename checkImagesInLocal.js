@@ -33,7 +33,11 @@ function searchImagesInFolder(imageFolder, imageNames) {
           searchRecursively(filePath);
         } else if (imageNames.includes(fileName)) {
           // If it's a file and the filename matches, add it to foundImages
-          foundImages.push(fileName);
+          
+if (!foundImages.includes(fileName)) {
+  foundImages.push(fileName);
+}
+          // foundImages.push(fileName);
         }
       }
     }
@@ -57,13 +61,14 @@ function writeImagesToFile(imageNames, outputFilePath) {
   }
 }
 
-const textFilePath = path.join(__dirname, 'txt files', 'upsc', 'images_not_exist_upsc.txt');
+const textFilePath = path.join(__dirname, 'txt files', 'ibps', 'images_not_exist_ibps.txt');
 const imageFolder = path.join(__dirname, 'ImageAssets');
-const missingImagesOutputFilePath = path.join(__dirname, 'Missing-Images', 'missing_images_upsc.txt'); // Define the output file path for missing images
-const foundImagesOutputFilePath = path.join(__dirname, 'Found-Images', 'found_images_upsc.txt'); // Define the output file path for found images
+const missingImagesOutputFilePath = path.join(__dirname, 'Missing-Images', 'missing_images.txt'); // Define the output file path for missing images
+const foundImagesOutputFilePath = path.join(__dirname, 'Found-Images', 'found_images.txt'); // Define the output file path for found images
 
 const imageNames = extractImageNames(textFilePath);
 const foundImages = searchImagesInFolder(imageFolder, imageNames);
+console.log(foundImages.length)
 
 const missingImages = imageNames.filter((imageName) => !foundImages.includes(imageName));
 
